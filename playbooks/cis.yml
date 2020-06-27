@@ -1,0 +1,6 @@
+---
+- name: 'Harden Centos 7'
+  hosts: default
+  become: true
+  roles:
+    - RHEL7-CIS

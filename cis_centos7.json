@@ -1,0 +1,38 @@
+{
+  "builders": [
+    {
+      "type": "vagrant",
+      "source_path": "centos/7",
+      "ssh_port": 22,
+      "communicator": "ssh",
+      "add_force": false,
+      "provider": "virtualbox",
+      "output_dir": "boxes/",
+      "template": "Vagrantfile"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/sshd.sh",
+        "scripts/tools.sh"
+      ]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "playbooks/cis.yml",
+      "galaxy_file": "requirements.yml"
+    },
+    {
+      "type": "shell",
+      "remote_folder": "/var/tmp",
+      "scripts": [
+        "scripts/cleanup.sh"
+      ]
+    }
+  ],
+  "variables": {
+	  "ver": "1.0"
+  }
+}
